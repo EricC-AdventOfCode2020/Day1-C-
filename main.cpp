@@ -2,9 +2,43 @@
 #include <string>
 #include <fstream>
 #include <vector>
-#include <sstream>
 
 using namespace std;
+
+int part_1(vector<int> *data)
+{
+    for (int i = 0; i < data->size(); i++)
+    {
+        for (int j = 0; j < data->size(); j++)
+        {
+            if (data->at(i) + data->at(j) == 2020)
+            {
+                return data->at(i) * data->at(j);
+            }
+        }
+    }
+    
+    return -1;
+}
+
+int part_2(vector<int> *data)
+{
+    for (int i = 0; i < data->size(); i++)
+    {
+        for (int j = 0; j < data->size(); j++)
+        {
+            for (int k = 0; k < data->size(); k++)
+            {
+                if (data->at(i) + data->at(j) + data->at(k) == 2020)
+                {
+                    return data->at(i) * data->at(j) * data->at(k);
+                }
+            }
+        }
+    }
+    
+    return -1;
+}
 
 int main()
 {
@@ -12,33 +46,20 @@ int main()
     input.open("./input");
 
     vector<int> data;
-    stringstream ss;
     string line;
 
     if (input.is_open())
     {
         while (getline(input, line))
         {
-            ss << line;
-            int n;
-            ss >> n;
-            ss.clear();
-            data.push_back(n);
+            data.push_back(stoi(line));
         }
     }
     input.close();
-    
-    for (int i = 0; i < data.size(); i++)
-    {
-        for (int j = 0; j < data.size(); j++)
-        {
-            if (data[i] + data[j] == 2020)
-            {
-                cout << data[i] * data[j] << endl;
-                return 0;
-            }
-        }
-    }
 
-    return -1;
+    cout << "Part 1: " << part_1(&data) << endl;
+    cout << "Part 2: " <<  part_2(&data) << endl;
+
+
+    return 0;
 }
